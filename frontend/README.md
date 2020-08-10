@@ -12,12 +12,6 @@
 - [ ] Sidebar
   - [ ] [Scroll to element](https://forum.quasar-framework.org/topic/2008/how-to-scroll-to-an-element/7)
 
-## Environment
-
-- Node.js v12+
-  - Yarn
-  - Quasar v1
-
 ## Development
 
 See [INSTALL.md](INSTALL.md) to know how to install and develop!

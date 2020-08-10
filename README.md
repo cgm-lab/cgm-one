@@ -1,3 +1,3 @@
 # CGM One Backend
 
-> [Frontend](tree/master/frontend)
+> [Frontend](https://github.com/cgm-lab/cgm-one/tree/master/frontend)

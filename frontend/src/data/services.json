@@ -1,0 +1,20 @@
+[
+  {
+    "name": "CGM Lab 網站",
+    "link": "https://cgm.im",
+    "icon": "web",
+    "ok": true
+  },
+  {
+    "name": "CGM Lab Code Server",
+    "link": "https://cdr.cgm.im",
+    "icon": "code",
+    "ok": true
+  },
+  {
+    "name": "旗艦 Jupyter Lab",
+    "link": "http://旗艦.cgm.im:8888",
+    "icon": "book",
+    "ok": true
+  }
+]

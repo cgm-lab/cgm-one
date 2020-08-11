@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-// get all domains and ips
 export default {
   name: 'App',
   created() {

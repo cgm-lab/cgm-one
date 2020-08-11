@@ -13,6 +13,18 @@
         {{ host.ip }}
       </q-chip>
     </div>
+    <div class="flex flex-center" v-if="!metric">
+      Please install
+      <q-btn
+        flat
+        color="primary"
+        label="CGM One Monitor API"
+        type="a"
+        href="https://github.com/cgm-lab/cgm-one-monitor-api/"
+        target="_blank"
+      />
+      and enable connection first.
+    </div>
     <div v-if="metric">
       <div class="flex flex-center">
         <span class="text-subtitle1">OS:</span>

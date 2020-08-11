@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     async fetchMetrics() {
-      const res = await fetch('http://one.cgm.im:8000/api/metrics');
+      const res = await fetch('https://one.cgm.im/api/metrics');
       const data = await res.json();
       this.$store.state.metrics = data;
     },

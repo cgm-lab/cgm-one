@@ -16,7 +16,7 @@ app = FastAPI()
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60 * 10, raise_exceptions=True)
+@repeat_every(seconds=60 * 5, raise_exceptions=True)
 def update_cache() -> None:
     def exception_handler(request, exception):
         print(request.url, exception)

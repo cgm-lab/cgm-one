@@ -9,6 +9,12 @@ export default {
   created() {
     this.$q.loading.show();
     this.fetchMetrics().then(() => this.$q.loading.hide());
+
+    setInterval(() => {
+      this.$q.loading.show();
+      this.fetchMetrics().then(() => this.$q.loading.hide());
+      console.log('Running');
+    }, 60 * 5 * 1000);
   },
   methods: {
     async fetchMetrics() {

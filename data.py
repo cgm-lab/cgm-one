@@ -19,3 +19,7 @@ CACHED_DATA = {}
 
 # TODO: check all services
 # use nmap?
+
+## 取所有 A 對應的 IP 與 domain 就可以取得唯一主機
+# 再針對這個 domain -> 取得 CNAME -> 找到中文名 (punnycode)
+# 沒有中文 punnycode 就不要

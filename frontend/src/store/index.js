@@ -15,6 +15,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     metrics: {},
+    lastUpdate: '',
   },
   mutations: {},
   actions: {},

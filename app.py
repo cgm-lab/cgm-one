@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi_utils.tasks import repeat_every
 from starlette.middleware.cors import CORSMiddleware
 
-from data import CACHED_DATA, HOSTS
+from data import CACHED_METRICS, HOSTS
 
 LAST_UPDATE = ""
 app = FastAPI()
@@ -17,7 +17,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 @repeat_every(seconds=60 * 10, raise_exceptions=True)
-async def update_cache() -> None:
+def update_cache() -> None:
     def exception_handler(request, exception):
         print(request.url, exception)
 
@@ -32,21 +32,26 @@ async def update_cache() -> None:
     for name, value in data.items():
         data[name]["domain"] = HOSTS[name]["domain"]
 
-    global CACHED_DATA, LAST_UPDATE
-    CACHED_DATA = data
+    global CACHED_METRICS, LAST_UPDATE
+    CACHED_METRICS = data
     LAST_UPDATE = datetime.now().strftime("%H:%M:%S")
 
-    print(LAST_UPDATE, CACHED_DATA)
+    print(LAST_UPDATE, CACHED_METRICS)
 
 
 @app.get("/api/metrics")
-async def metrics():
-    return CACHED_DATA
+def metrics():
+    return CACHED_METRICS
 
 
 @app.get("/api/hosts")
-async def hosts():
+def hosts():
     return HOSTS
+
+
+@app.get("/api/lastUpdate")
+def last_update():
+    return {"lastUpdate": LAST_UPDATE}
 
 
 app.mount(

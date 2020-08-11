@@ -6,7 +6,7 @@ HOSTS = {
     "大考": {"domain": "ceec.cgm.im", "ip": "140.118.109.84"},
 }
 
-CACHED_DATA = {}
+CACHED_METRICS = {}
 
 # @ 1800 IN A 140.118.9.222 -> @
 # cdr 1800 IN CNAME cgm.im.

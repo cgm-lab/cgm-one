@@ -35,6 +35,16 @@
       </q-tabs>
     </q-header>
 
+    <q-footer>
+      <q-toolbar class="text-center">
+        <q-space />
+        <span>
+          有任何問題設備或網路疑問請聯絡 CGM 網管
+        </span>
+        <q-space />
+      </q-toolbar>
+    </q-footer>
+
     <q-page-container>
       <router-view />
     </q-page-container>

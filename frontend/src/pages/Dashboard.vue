@@ -63,6 +63,35 @@
           </q-linear-progress>
         </div>
       </div>
+      <!-- CPU -->
+      <div class="row q-pa-md">
+        <div class="col-2">
+          CPU
+        </div>
+        <div class="col-10">
+          <q-linear-progress
+            stripe
+            rounded
+            size="25px"
+            :value="metric.cpu.used / metric.cpu.total"
+            :color="getColor(metric.cpu.used / metric.cpu.total)"
+          >
+            <div class="absolute-full flex flex-center">
+              <q-badge
+                color="white"
+                text-color="accent"
+                :label="
+                  metric.cpu.used.toFixed(2) +
+                    ' / ' +
+                    metric.cpu.total.toFixed(2) +
+                    ' ' +
+                    metric.ram.unit
+                "
+              />
+            </div>
+          </q-linear-progress>
+        </div>
+      </div>
       <!-- RAM -->
       <div class="row q-pa-md">
         <div class="col-2">

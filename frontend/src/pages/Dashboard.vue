@@ -85,7 +85,7 @@
                     ' / ' +
                     metric.cpu.total.toFixed(2) +
                     ' ' +
-                    metric.ram.unit
+                    metric.cpu.unit
                 "
               />
             </div>

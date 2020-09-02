@@ -18,9 +18,9 @@
       <q-btn
         flat
         color="primary"
-        label="CGM One Monitor API"
+        label="CGM One Client"
         type="a"
-        href="https://github.com/cgm-lab/cgm-one-monitor-api/"
+        href="https://github.com/cgm-lab/cgm-one-client/"
         target="_blank"
       />
       and enable connection first.
@@ -41,6 +41,7 @@
         </div>
         <div class="col-10">
           <q-linear-progress
+            v-if="metric.net"
             stripe
             rounded
             size="25px"

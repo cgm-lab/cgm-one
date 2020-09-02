@@ -1,62 +1,61 @@
-from datetime import datetime
+from dataclasses import asdict
+from json import loads
+from typing import List
 
-import grequests
 import uvicorn
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from starlette.responses import FileResponse
+from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.staticfiles import StaticFiles
-from fastapi_utils.tasks import repeat_every
 from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse
 
-from data import CACHED_METRICS, HOSTS
+from data import get_name_by_ip
+from repository import Host, Repository
 
-LAST_UPDATE = ""
 app = FastAPI()
+repo = Repository()
 
 
-@app.on_event("startup")
-@repeat_every(seconds=60 * 5, raise_exceptions=True)
-def update_cache() -> None:
-    def exception_handler(request, exception):
-        print(request.url, exception)
-
-    reqs = (
-        grequests.get(f"http://{value['ip']}:9999/api", timeout=2)
-        for name, value in HOSTS.items()
-    )
-    names = list(HOSTS.keys())
-    ress = grequests.map(reqs, exception_handler=exception_handler)
-    data = {name: res.json() for name, res in dict(zip(names, ress)).items() if res}
-
-    for name, value in data.items():
-        data[name]["domain"] = HOSTS[name]["domain"]
-
-    global CACHED_METRICS, LAST_UPDATE
-    CACHED_METRICS = data
-    LAST_UPDATE = datetime.now().strftime("%H:%M:%S")
-
-    print(LAST_UPDATE, CACHED_METRICS)
-
-
-@app.get("/api/metrics")
-def metrics():
-    return CACHED_METRICS
+@app.get("/api/hosts/{ip}")
+def read_host(ip: str) -> List[Host]:
+    return repo.get_host(ip)
 
 
 @app.get("/api/hosts")
-def hosts():
-    return HOSTS
+def read_hosts() -> List[Host]:
+    return repo.hosts
 
 
-@app.get("/api/lastUpdate")
-def last_update():
-    return {"lastUpdate": LAST_UPDATE}
+@app.post("/api/hosts", status_code=status.HTTP_201_CREATED)
+async def create_host(request: Request):
+    metrics = loads(await request.body())
+    host = Host(
+        ip=request.client.host,
+        name=get_name_by_ip(request.client.host),
+        metrics=metrics,
+    )
+    repo.register(host)
+    return asdict(host)
 
 
-app.mount(
-    "/static", StaticFiles(directory="frontend/dist/spa"), name="static",
-)
+@app.put("/api/hosts")
+async def update_host(request: Request):
+    metrics = loads(await request.body())
+    repo.update(request.client.host, metrics)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@app.delete("/api/hosts")
+async def delete_host(request: Request):
+    repo.deregister(request.client.host)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@app.get("/api/metrics")
+def read_metrics():
+    return repo.metrics
+
+
+app.mount("/static", StaticFiles(directory="frontend/dist/spa"), name="static")
 
 
 @app.get("/", include_in_schema=False)
@@ -64,14 +63,28 @@ def root():
     return FileResponse("frontend/dist/spa/index.html", media_type="text/html")
 
 
-if True:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+def is_ip_valid(ip: str):
+    return ip.startswith("140.118") or ip.startswith("192.168")
+
+
+@app.middleware("http")
+async def verify_client_ip(request: Request, call_next):
+    if request.method != "GET" and not is_ip_valid(request.client.host):
+        # NOTE: only allow specific computers to do CUD
+        return Response(status_code=403)
+    response = await call_next(request)
+    return response
+
 
 if __name__ == "__main__":
+    DEBUG = True
+
+    if DEBUG:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
     uvicorn.run(app, host="0.0.0.0")

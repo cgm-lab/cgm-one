@@ -1,12 +1,15 @@
 # TODO: use gandi get only api key to read all dns record
 
 HOSTS = {
-    "網站": {"domain": "cgm.im", "ip": "140.118.9.222"},
-    "旗艦": {"domain": "flagship.cgm.im", "ip": "140.118.110.127"},
-    "大考": {"domain": "ceec.cgm.im", "ip": "140.118.109.84"},
+    "140.118.9.222": "網站",
+    "192.168.0.11": "大考",
+    "192.168.0.12": "旗艦",
 }
 
-CACHED_METRICS = {}
+
+def get_name_by_ip(ip: str) -> str:
+    return HOSTS.get(ip, "")
+
 
 # @ 1800 IN A 140.118.9.222 -> @
 # cdr 1800 IN CNAME cgm.im.

@@ -1,15 +1,17 @@
 # New API
 
-## Repository
+## Hosts
 
-- api/repository
+- api/hosts
   - GET
-  - POST (create service)
+    - For `frontend` to know how many hosts
+  - POST (create host and its metrics)
     - `name` needed, only allow 192.168 or 140.118
-  - DELETE (delete service)
-    - `token` needed
-  - PUT (update service info)
-    - `token` needed
+    - `ip` verify needed
+  - PUT (update host metrics)
+    - `ip` verify needed
+  - DELETE (delete host)
+    - `ip` verify needed
 
 ## Metrics
 

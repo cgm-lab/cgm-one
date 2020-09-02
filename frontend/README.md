@@ -5,7 +5,6 @@
 ## TODO
 
 - [ ] 監控所有服務
-  - 透過 `netdata api`
 - [x] 撰寫 Client 的啟用監控教學
 - [ ] 撰寫 Server 維護方法
 

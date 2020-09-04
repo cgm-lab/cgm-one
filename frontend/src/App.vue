@@ -21,9 +21,6 @@ export default {
       let res = await fetch('https://one.cgm.im/api/metrics');
       let data = await res.json();
       this.$store.state.metrics = data;
-      res = await fetch('https://one.cgm.im/api/lastUpdate');
-      data = await res.json();
-      this.$store.state.lastUpdate = data.lastUpdate;
     },
   },
 };

@@ -15,7 +15,7 @@
         </q-btn>
         <q-space />
         <q-toggle
-          v-model="$q.dark.mode"
+          v-model="$q.dark.isActive"
           @input="toggleTheme()"
           unchecked-icon="wb_sunny"
           checked-icon="brightness_3"
@@ -61,6 +61,12 @@ export default {
   methods: {
     toggleTheme() {
       this.$q.dark.toggle();
+      try {
+        this.$q.sessionStorage.set('dark', this.$q.dark.isActive);
+      } catch (e) {
+        // data wasn't successfully saved due to
+        // a Web Storage API error
+      }
     },
     getTabName(domain) {
       if (domain === 'cgm.im') {

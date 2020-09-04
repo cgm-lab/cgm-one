@@ -8,6 +8,12 @@ export default {
   name: 'App',
   created() {
     this.$q.loading.show();
+    try {
+      this.$q.dark.set(this.$q.sessionStorage.getItem('dark'));
+    } catch (e) {
+      // data wasn't successfully saved due to
+      // a Web Storage API error
+    }
     this.fetchMetrics().then(() => this.$q.loading.hide());
 
     setInterval(() => {

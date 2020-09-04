@@ -32,16 +32,21 @@
           {{ metric.os }}
         </q-chip>
       </div>
+      <div class="flex flex-center" v-if="metric.lastUpdate">
+        <span class="text-subtitle1">Last Update:</span>
+        <q-chip outline color="accent" icon="language">
+          {{ metric.lastUpdate }}
+        </q-chip>
+      </div>
 
       <h4 class="flex flex-center">Usage</h4>
       <!-- NETWORK -->
-      <div class="row q-pa-md">
+      <div class="row q-pa-md" v-if="metric.net">
         <div class="col-2">
           Network
         </div>
         <div class="col-10">
           <q-linear-progress
-            v-if="metric.net"
             stripe
             rounded
             size="25px"
@@ -218,7 +223,7 @@ export default {
       return [this.name + '.cgm.im', this.host.domain];
     },
     metric() {
-      return this.$store.state.metrics[this.name] || null;
+      return this.$store.state.metrics[this.host.ip] || null;
     },
   },
 };

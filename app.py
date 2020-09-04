@@ -5,6 +5,7 @@ from typing import List
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.staticfiles import StaticFiles
+from fastapi_utils.tasks import repeat_every
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse
 
@@ -74,6 +75,12 @@ async def verify_client_ip(request: Request, call_next):
         return Response(status_code=403)
     response = await call_next(request)
     return response
+
+
+@app.on_event("startup")
+@repeat_every(seconds=5 * 60)  # 5 min
+def auto_check_and_deregister() -> None:
+    repo.auto_check_and_deregister()
 
 
 if __name__ == "__main__":

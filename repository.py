@@ -142,7 +142,7 @@ class Repository:
             }
         """
         return {
-            h.ip: {**h.metrics, "last_update": h.lastUpdate.strftime(TIME_FMT)}
+            h.ip: {**h.metrics, "lastUpdate": h.last_update.strftime(TIME_FMT)}
             for _, h in self._hosts.items()
         }
 

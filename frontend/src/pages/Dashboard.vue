@@ -7,7 +7,7 @@
         {{ d }}
       </q-chip>
     </div>
-    <div class="flex flex-center">
+    <div class="flex flex-center" v-if="host.ip">
       <span class="text-subtitle1">IP:</span>
       <q-chip outline color="accent" icon="language">
         {{ host.ip }}
@@ -223,7 +223,11 @@ export default {
       return [this.name + '.cgm.im', this.host.domain];
     },
     metric() {
-      return this.$store.state.metrics[this.host.ip] || null;
+      return (
+        this.$store.state.metrics[this.host.local] ||
+        this.$store.state.metrics[this.host.ip] ||
+        null
+      );
     },
   },
 };

@@ -15,7 +15,7 @@
         </q-btn>
         <q-space />
         <q-toggle
-          v-model="$q.dark.isActive"
+          v-model="$q.dark.mode"
           @input="toggleTheme()"
           unchecked-icon="wb_sunny"
           checked-icon="brightness_3"

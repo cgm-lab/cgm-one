@@ -38,7 +38,7 @@ class Repository:
 
     def auto_check_and_deregister(self):
         now = datetime.now()
-        for ip, host in self._host.items():
+        for ip, host in self._hosts.items():
             # check last update is 2 times interval
             if now > host.last_update + timedelta(seconds=2 * self.interval):
                 logger.info(f"{host.name} is outedated, deregister it now!")
@@ -141,7 +141,10 @@ class Repository:
               }
             }
         """
-        return {h.ip: h.metrics for _, h in self._hosts.items()}
+        return {
+            h.ip: {**h.metrics, "last_update": h.lastUpdate.strftime(TIME_FMT)}
+            for _, h in self._hosts.items()
+        }
 
     @property
     def hosts(self) -> List[Host]:
@@ -160,8 +163,8 @@ class Repository:
         del self._hosts[ip]
 
     def update(self, ip: str, metrics: dict):
-        # TODO: last_update
         self._hosts[ip].metrics = metrics
+        self._hosts[ip].last_update = datetime.now()
 
 
 # NOTE: frontend need to know some fixed tabs

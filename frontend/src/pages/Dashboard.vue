@@ -23,7 +23,7 @@
         href="https://github.com/cgm-lab/cgm-one-client/"
         target="_blank"
       />
-      and enable connection first.
+      first.
     </div>
     <div v-if="metric">
       <div class="flex flex-center">
@@ -34,7 +34,7 @@
       </div>
       <div class="flex flex-center" v-if="metric.lastUpdate">
         <span class="text-subtitle1">Last Update:</span>
-        <q-chip outline color="accent" icon="language">
+        <q-chip outline color="accent" icon="access_time">
           {{ metric.lastUpdate }}
         </q-chip>
       </div>

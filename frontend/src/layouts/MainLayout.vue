@@ -14,7 +14,6 @@
           </q-toolbar-title>
         </q-btn>
         <q-space />
-        <span>上次更新：{{ $store.state.lastUpdate }}</span>
         <q-toggle
           v-model="$q.dark.mode"
           @input="toggleTheme()"

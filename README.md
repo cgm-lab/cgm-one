@@ -16,6 +16,8 @@
 pip install -r requirements.txt  # backend
 # frontend
 cd frontend
+yarn global add @vue/cli
+yarn global add @quasar/cli
 yarn
 ```
 

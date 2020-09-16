@@ -64,6 +64,7 @@ app.mount("/static", StaticFiles(directory="frontend/dist/pwa"), name="static")
 def root():
     return FileResponse("frontend/dist/pwa/index.html", media_type="text/html")
 
+
 @app.get("/static", include_in_schema=False)
 def re_root():
     url = app.url_path_for("root")

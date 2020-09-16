@@ -39,7 +39,7 @@ quasar dev -m pwa
 ```bash
 # build frontend
 cd frontend
-quasar build
+quasar build -m pwa
 # run server
 cd ..
 python app.py

@@ -56,12 +56,12 @@ def read_metrics():
     return repo.metrics
 
 
-app.mount("/static", StaticFiles(directory="frontend/dist/spa"), name="static")
+app.mount("/static", StaticFiles(directory="frontend/dist/pwa"), name="static")
 
 
 @app.get("/", include_in_schema=False)
 def root():
-    return FileResponse("frontend/dist/spa/index.html", media_type="text/html")
+    return FileResponse("frontend/dist/pwa/index.html", media_type="text/html")
 
 
 def is_ip_valid(ip: str):

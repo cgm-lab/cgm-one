@@ -31,7 +31,7 @@ python app.py
 
 ```bash
 cd frontend
-quasar dev
+quasar dev -m pwa
 ```
 
 ## Production

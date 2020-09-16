@@ -113,7 +113,10 @@ cfg.module.rules.push({
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxOptions: {
+        skipWaiting: true,
+        clientsClaim: true
+      }, // only for GenerateSW
       manifest: {
         name: `CGM One`,
         short_name: `CGM One`,
@@ -145,6 +148,20 @@ cfg.module.rules.push({
           }
         ]
       }
+    },
+    // Use this OR metaVariablesFn, but not both;
+    // variables used to inject specific PWA
+    // meta tags (below are default values);
+    metaVariables: {
+      appleMobileWebAppCapable: 'yes',
+      appleMobileWebAppStatusBarStyle: 'black-translucent',
+      appleTouchIcon120: 'icons/apple-icon-120x120.png',
+      appleTouchIcon180: 'icons/apple-icon-180x180.png',
+      appleTouchIcon152: 'icons/apple-icon-152x152.png',
+      appleTouchIcon167: 'icons/apple-icon-167x167.png',
+      appleSafariPinnedTab: 'icons/safari-pinned-tab.svg',
+      msapplicationTileImage: 'icons/ms-icon-144x144.png',
+      msapplicationTileColor: '#FFFFFF'
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova

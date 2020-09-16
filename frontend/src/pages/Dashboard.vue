@@ -191,14 +191,6 @@
         </div>
       </div>
     </div>
-
-    <h4 class="flex flex-center desktop-only" v-if="monitor">Monitor</h4>
-    <div class="flex flex-center desktop-only" v-if="monitor">
-      <iframe
-        :src="monitor"
-        style="min-width: 80%; min-height: 800px;"
-      ></iframe>
-    </div>
   </q-page>
 </template>
 

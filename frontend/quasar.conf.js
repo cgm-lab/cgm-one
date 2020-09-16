@@ -98,7 +98,7 @@ cfg.module.rules.push({
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Loading', 'SessionStorage']
+      plugins: ['Loading', 'LocalStorage']
     },
 
     // animations: 'all', // --- includes all animations

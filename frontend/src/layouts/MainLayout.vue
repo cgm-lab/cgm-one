@@ -62,7 +62,7 @@ export default {
     toggleTheme() {
       this.$q.dark.toggle();
       try {
-        this.$q.sessionStorage.set('dark', this.$q.dark.isActive);
+        this.$q.localStorage.set('dark', this.$q.dark.isActive);
       } catch (e) {
         // data wasn't successfully saved due to
         // a Web Storage API error

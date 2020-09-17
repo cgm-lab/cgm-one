@@ -121,7 +121,7 @@ cfg.module.rules.push({
         name: `CGM One`,
         short_name: `CGM One`,
         description: `CGM One`,
-        display: 'standalone',
+        display: 'fullscreen',
         orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#323333',
@@ -132,8 +132,7 @@ cfg.module.rules.push({
             type: 'image/png'
           }
         ],
-        'start_url': '/',
-        'display': 'standalone',
+        start_url: '/',
       }
     },
     // Use this OR metaVariablesFn, but not both;

@@ -131,7 +131,9 @@ cfg.module.rules.push({
             sizes: '192x192',
             type: 'image/png'
           }
-        ]
+        ],
+        'start_url': '/',
+        'display': 'standalone',
       }
     },
     // Use this OR metaVariablesFn, but not both;
